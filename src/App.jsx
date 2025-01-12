@@ -9,7 +9,26 @@ const App = () => {
   const [index , setIndex] = useState(0);
   const {name, job, image, text} = people[index];
 
-  
+  const nextPerson = () => {
+    setIndex((curentIndex)  => {
+      const newIndex = curentIndex + 1;
+      if (newIndex > people.length - 1) {
+        return 0
+      }
+      return newIndex
+    })
+  }
+  const prevPerson = () => {
+    setIndex((curentIndex)  => {
+      const newIndex = curentIndex -1;
+      if(newIndex < 0) {    
+        return people.length - 1
+      }
+      return newIndex
+    })
+  }
+
+
   return <main>
     <article className='review'>  
       <div className='img-container'>
@@ -19,6 +38,17 @@ const App = () => {
         </span>
       </div>
       <h4 className='author'>{name}</h4>
+      <p className='job'>{job}</p>
+      <p className='info'>{text}</p>
+      <div className='button-container'>
+        <button className='prev-btn' onClick={prevPerson}>
+          <FaChevronCircleLeft />
+        </button>
+        <button className='next-btn' onClick={nextPerson}>
+          <FaChevronCircleRight />
+        </button>
+      </div>
+      <button className='btn btn-hipster' onClick={() => setIndex(Math.floor(Math.random() * people.length))}>suprise me</button>
     </article>
   </main>;
 };
